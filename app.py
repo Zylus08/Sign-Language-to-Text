@@ -13,7 +13,7 @@ from string import ascii_uppercase
 
 class Application:
     def __init__(self):
-	self.directory = 'model'
+        self.directory = 'model'
         self.hs = hunspell.HunSpell('/usr/share/hunspell/en_US.dic', '/usr/share/hunspell/en_US.aff')
         self.vs = cv2.VideoCapture(0)
         self.current_image = None
@@ -173,32 +173,32 @@ class Application:
         self.current_symbol = prediction[0][0]
         #LAYER 2
         if(self.current_symbol == 'D' or self.current_symbol == 'R' or self.current_symbol == 'U'):
-        	prediction = {}
-        	prediction['D'] = result_dru[0][0]
-        	prediction['R'] = result_dru[0][1]
-        	prediction['U'] = result_dru[0][2]
-        	prediction = sorted(prediction.items(), key=operator.itemgetter(1), reverse=True)
-        	self.current_symbol = prediction[0][0]
+            prediction = {}
+            prediction['D'] = result_dru[0][0]
+            prediction['R'] = result_dru[0][1]
+            prediction['U'] = result_dru[0][2]
+            prediction = sorted(prediction.items(), key=operator.itemgetter(1), reverse=True)
+            self.current_symbol = prediction[0][0]
 
         if(self.current_symbol == 'D' or self.current_symbol == 'I' or self.current_symbol == 'K' or self.current_symbol == 'T'):
-        	prediction = {}
-        	prediction['D'] = result_tkdi[0][0]
-        	prediction['I'] = result_tkdi[0][1]
-        	prediction['K'] = result_tkdi[0][2]
-        	prediction['T'] = result_tkdi[0][3]
-        	prediction = sorted(prediction.items(), key=operator.itemgetter(1), reverse=True)
-        	self.current_symbol = prediction[0][0]
+            prediction = {}
+            prediction['D'] = result_tkdi[0][0]
+            prediction['I'] = result_tkdi[0][1]
+            prediction['K'] = result_tkdi[0][2]
+            prediction['T'] = result_tkdi[0][3]
+            prediction = sorted(prediction.items(), key=operator.itemgetter(1), reverse=True)
+            self.current_symbol = prediction[0][0]
 
         if(self.current_symbol == 'M' or self.current_symbol == 'N' or self.current_symbol == 'S'):
-        	prediction1 = {}
-        	prediction1['M'] = result_smn[0][0]
-        	prediction1['N'] = result_smn[0][1]
-        	prediction1['S'] = result_smn[0][2]
-        	prediction1 = sorted(prediction1.items(), key=operator.itemgetter(1), reverse=True)
-        	if(prediction1[0][0] == 'S'):
-        		self.current_symbol = prediction1[0][0]
-        	else:
-        		self.current_symbol = prediction[0][0]
+            prediction1 = {}
+            prediction1['M'] = result_smn[0][0]
+            prediction1['N'] = result_smn[0][1]
+            prediction1['S'] = result_smn[0][2]
+            prediction1 = sorted(prediction1.items(), key=operator.itemgetter(1), reverse=True)
+            if(prediction1[0][0] == 'S'):
+                self.current_symbol = prediction1[0][0]
+            else:
+                self.current_symbol = prediction[0][0]
         if(self.current_symbol == 'blank'):
             for i in ascii_uppercase:
                 self.ct[i] = 0
@@ -230,36 +230,41 @@ class Application:
                     self.str = ""
                 self.blank_flag = 0
                 self.word += self.current_symbol
-    def action1(self):
-    	predicts=self.hs.suggest(self.word)
-    	if(len(predicts) > 0):
-            self.word=""
-            self.str+=" "
-            self.str+=predicts[0]
-    def action2(self):
-    	predicts=self.hs.suggest(self.word)
-    	if(len(predicts) > 1):
-            self.word=""
-            self.str+=" "
-            self.str+=predicts[1]
-    def action3(self):
-    	predicts=self.hs.suggest(self.word)
-    	if(len(predicts) > 2):
-            self.word=""
-            self.str+=" "
-            self.str+=predicts[2]
-    def action4(self):
-    	predicts=self.hs.suggest(self.word)
-    	if(len(predicts) > 3):
-            self.word=""
-            self.str+=" "
-            self.str+=predicts[3]
-    def action5(self):
-    	predicts=self.hs.suggest(self.word)
-    	if(len(predicts) > 4):
-            self.word=""
-            self.str+=" "
-            self.str+=predicts[4]
+def action1(self):
+    predicts = self.hs.suggest(self.word)
+    if len(predicts) > 0:
+        self.word = ""
+        self.str += " "
+        self.str += predicts[0]
+
+def action2(self):
+    predicts = self.hs.suggest(self.word)
+    if len(predicts) > 1:
+        self.word = ""
+        self.str += " "
+        self.str += predicts[1]
+
+def action3(self):
+    predicts = self.hs.suggest(self.word)
+    if len(predicts) > 2:
+        self.word = ""
+        self.str += " "
+        self.str += predicts[2]
+
+def action4(self):
+    predicts = self.hs.suggest(self.word)
+    if len(predicts) > 3:
+        self.word = ""
+        self.str += " "
+        self.str += predicts[3]
+
+def action5(self):
+    predicts = self.hs.suggest(self.word)
+    if len(predicts) > 4:
+        self.word = ""
+        self.str += " "
+        self.str += predicts[4]
+
     def destructor(self):
         print("Closing Application...")
         self.root.destroy()
